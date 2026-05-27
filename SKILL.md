@@ -1,12 +1,12 @@
 ---
 name: blog-builder
-description: Schreibt Blog-Posts + LinkedIn-Drafts aus Vault-Projektnotizen. Wählt Format je nach User-Wunsch: Portal (~300 Wörter) oder Tutorial (~1500-2000 Wörter). IMMER draft: true. User reviewed vor Live.
+description: Schreibt Blog-Posts + LinkedIn-Drafts aus Vault-Projektnotizen. Wählt Format je nach User-Wunsch: Portal (~300 Wörter), Tutorial (~1500-2000 Wörter) oder Kommentar (~500-700 Wörter). IMMER draft: true. User reviewed vor Live.
 license: MIT
 compatibility: opencode
 ---
 
 ## Was ich tue
-- Erkennt am Prompt des Users das Format: "Kurz-Post"/"Case Study" → Portal. "Tutorial"/"Anleitung" → Tutorial.
+- Erkennt am Prompt des Users das Format: "Kurz-Post"/"Case Study" → Portal. "Tutorial"/"Anleitung" → Tutorial. "Kommentar"/"Meinung"/"Op-Ed" → Kommentar.
 - Fragt nach wenn nicht klar.
 
 ## Format: Portal (Kurz-Post, ~300 Wörter)
@@ -52,6 +52,52 @@ description: "Ein Satz, der neugierig macht — Problem und Ergebnis in einem."
 - Konkret statt abstrakt
 - Kein Code im Fließtext
 - Schreibe wie du einem Kollegen in der Küche was erzählst
+
+## Format: Kommentar (Meinungsbeitrag, ~500-700 Wörter)
+- Struktur: These → Kontext → Argumente → Gegenargument → Synthese
+- Ich-Perspektive
+- Code optional, nur illustrativ
+- Keine Schritt-für-Schritt
+- Max 700 Wörter
+
+### Phase 1: Projekt verstehen (Kommentar)
+
+1. Frage nach Thema und These falls nicht genannt
+2. Lese ggf. `projekte/<projekt>.md` und `services/<projekt>.md`
+3. Extrahiere: These · 2-3 Belege · Gegenargument · Tech-Stack
+4. Frage nach bei Unklarheiten
+
+### Phase 2: Post schreiben (Kommentar)
+
+**Datei:** `[BLOG-REPO]/content/blog/<slug>.md`
+
+**Frontmatter:**
+```yaml
+---
+title: "Aussagekräftiger Titel"
+date: YYYY-MM-DD
+draft: true
+description: "Ein Satz, der neugierig macht — die These in einem Satz."
+tags:
+  - kommentar
+---
+```
+
+**Struktur (500-700 Wörter):**
+
+1. **These** — Provokative Behauptung. "X ist nicht Y, es ist Z." Keine abstrakte Einleitung.
+2. **Kontext** — Status quo. Was wird angenommen? Was ist der Fehlschluss? Warum ist das relevant?
+3. **Argumente** — 2-3 Belege aus eigener Erfahrung. Mit Zahlen oder konkreten Beispielen. Jeder tech-Begriff in 1 Satz erklären.
+4. **Gegenargument** — Die andere Seite fair nennen. "Natürlich könnte man X. Aber..."
+5. **Synthese** — These mit neuem Gewicht wiederholen. Ein Satz der hängen bleibt.
+
+**Tone-Regeln Kommentar:**
+- Ich-Perspektive ("Ich glaube", "Meiner Erfahrung nach")
+- Satzlänge max 20 Wörter
+- Keine Buzzwords
+- Tech-Begriffe in 1 Satz erklären (knapp, nicht doppelt wie im Tutorial)
+- Code nur wenn es die These stützt, nie als Anleitung
+- CI/CD-Trenn-Regel gilt: Kein deploy.sh/nginx-Config
 
 ## Format: Tutorial (Lang-Post, ~1500-2000 Wörter)
 - Struktur: Hook → OpenCode-Kontext → Skills → Warum-X → MCPs mit Erklär-Ebenen → Retro → Schritt-für-Schritt (5 Steps) → Zukunft → Repo-Links
@@ -125,7 +171,9 @@ tags:
 - 1-3 Code-Blöcke, jeder mit Vorher-Erklärung und Nachher-Kontext
 - Kein CI/CD/Webhook im Post
 
-### Lizenz-Tabelle (Tutorial)
+### Lizenz-Tabelle
+
+Nur bei Tutorial:
 
 ```
 | Skill | Zweck | Lizenz |
@@ -135,7 +183,7 @@ tags:
 
 Repo-Link: `https://github.com/weitzelnet/[repo]`
 
-## Phase 3: LinkedIn-Draft (beide Formate)
+## Phase 3: LinkedIn-Draft (alle drei Formate)
 
 3 Absätze:
 1. **Hook** — Das Problem in einem Satz. Mit Wiedererkennungswert.
@@ -146,7 +194,7 @@ Kein Link zum Post, keine Hashtags.
 
 ## Phase 4: Vorlegen
 
-Zeige beides im Chat:
+Zeige Post + LinkedIn-Draft im Chat:
 
 ```
 📝 Blog-Post (Draft) → content/blog/<slug>.md
@@ -173,6 +221,16 @@ Bei "Ändere X":
 2. Erneut vorlegen (Phase 4)
 
 Sonst: Es bleibt Draft. Kein automatisches Veröffentlichen.
+
+## Review-Checkliste Kommentar
+- Provokative These im Lead?
+- 2-3 konkrete Belege aus eigener Erfahrung?
+- Gegenargument fair genannt?
+- Max 700 Wörter?
+- Satzlänge max 20 Wörter?
+- Ich-Perspektive?
+- Code nur illustrativ (wenn vorhanden), nie als Anleitung?
+- CI/CD-Trenn-Regel eingehalten?
 
 ## Review-Checkliste Portal
 - Konkrete Szene im Lead?

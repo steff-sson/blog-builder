@@ -1,6 +1,6 @@
 ---
 name: blog-builder
-description: Schreibt Blog-Posts + LinkedIn-Drafts aus Vault-Projektnotizen. Wählt Format je nach User-Wunsch: Portal (~300 Wörter) oder Tutorial (~1500-2000 Wörter). IMMER draft: true. User reviewed vor Live.
+description: Schreibt Blog-Posts + LinkedIn-Drafts aus Vault-Projektnotizen. Wählt Format je nach User-Wunsch: Portal (~300 Wörter), Tutorial (~1500-2000 Wörter) oder Kommentar (~500-700 Wörter). IMMER draft: true. User reviewed vor Live.
 license: MIT
 compatibility: opencode
 ---
@@ -14,6 +14,7 @@ Ich schreibe Blog-Posts aus deinen Obsidian-Projektnotizen. Du sagst mir das For
 **Formate:**
 - **Portal** – Kurz-Post, ~300 Wörter
 - **Tutorial** – Lang-Post, ~1500–2000 Wörter
+- **Kommentar** – Meinungsbeitrag, ~500–700 Wörter
 
 Wenn du kein Format nennst, frage ich nach. Jeder Post bekommt `draft: true`. Ich poste nicht live – du reviewst vorher.
 
@@ -63,10 +64,27 @@ Wenn du kein Format nennst, frage ich nach. Jeder Post bekommt `draft: true`. Ic
 
 ---
 
-## Regeln (für beide Formate)
+## Format: Kommentar (Meinungsbeitrag)
+
+**Struktur:**
+1. **These** – Provokative Behauptung
+2. **Kontext** – Status quo, Fehlschluss
+3. **Argumente** – 2-3 Belege aus eigener Erfahrung
+4. **Gegenargument** – Die andere Seite fair nennen
+5. **Synthese** – These mit neuem Gewicht
+
+**Stil:**
+- Ich-Perspektive
+- Code optional, nur illustrativ
+- ~500-700 Wörter
+- Tech-Begriffe in 1 Satz erklären
+
+---
+
+## Regeln (für alle Formate)
 
 - **Nicht in den Post:** CI/CD, Deployment-Pipeline, Webhooks – das kommt in einen separaten Post
-- **Lizenz-Tabelle** am Ende: MIT
+- **Lizenz-Tabelle** am Ende: MIT (nur bei Tutorial)
 - **LinkedIn-Draft:** 3 Absätze, kein Link, kein Code – parallel zum Blog-Post generieren
 
 ---

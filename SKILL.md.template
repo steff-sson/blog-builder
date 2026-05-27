@@ -1,102 +1,93 @@
 ---
 name: blog-builder
-description: Schreibt Blog-Posts + LinkedIn-Drafts aus Vault-Projektnotizen. IMMER draft: true. User reviewed vor Live.
+description: Schreibt Blog-Posts + LinkedIn-Drafts aus Vault-Projektnotizen. Wählt Format je nach User-Wunsch: Portal (~300 Wörter) oder Tutorial (~1500-2000 Wörter). IMMER draft: true. User reviewed vor Live.
 license: MIT
 compatibility: opencode
 ---
 
+# blog-builder
+
 ## Was ich tue
 
-Wenn der User sagt "Veröffentliche Projekt X", "Schreib einen Blog-Post über X" oder ähnlich:
+Ich schreibe Blog-Posts aus deinen Obsidian-Projektnotizen. Du sagst mir das Format, ich liefere den ersten Entwurf.
 
-### Phase 1: Projekt verstehen
+**Formate:**
+- **Portal** – Kurz-Post, ~300 Wörter
+- **Tutorial** – Lang-Post, ~1500–2000 Wörter
 
-1. Frage nach dem Projektnamen, falls nicht genannt
-2. Lese die Vault-Notiz: `[VAULT-PFAD]/<projekt>.md` und ggf. `[VAULT-PFAD]/services/<projekt>.md`
-3. Extrahiere: Problem · Lösung · Ergebnis · Tech-Stack · Dauer · Zahlen
-4. Frage nach wenn etwas unklar ist
+Wenn du kein Format nennst, frage ich nach. Jeder Post bekommt `draft: true`. Ich poste nicht live – du reviewst vorher.
 
-### Phase 2: Blog-Post schreiben
-
-**Datei:** `[BLOG-REPO]/content/blog/<slug>.md`
-
-**Frontmatter:**
-```yaml
 ---
-title: "Aussagekräftiger Titel"
-date: YYYY-MM-DD
-draft: true
-description: "Ein Satz, der neugierig macht — das Problem und das Ergebnis in einem."
+
+## Format: Portal (Kurz-Post)
+
+**Struktur:**
+1. **Lead** – Ein Satz, der neugierig macht
+2. **Problem** – Was wolltest du lösen?
+3. **Lösung** – Was hast du gebaut/gefunden?
+4. **Ergebnis** – Was hat sich verbessert?
+5. **Lesson** – Ein Takeaway für die Leser
+
+**Stil:**
+- Ich-Perspektive ("Ich habe…")
+- Keine Code-Blöcke
+- ~300 Wörter
+- Ein Bild/Embed optional
+
 ---
-```
 
-**Struktur (max 300 Wörter):**
+## Format: Tutorial (Lang-Post)
 
-1. **Lead** — Konkrete Szene oder Frage. Keine abstrakte Einleitung.
-2. **Das Problem** — Was war los? In einem Absatz.
-3. **Der Lösungsweg** — Welche Entscheidungen? Was wurde verworfen?
-4. **Das Ergebnis** — Konkret. Zahlen wenn möglich. Was ist anders als vorher?
-5. **Was ich gelernt habe** — Ein Satz der hängen bleibt.
+**Struktur:**
+1. **Hook** – Szenario, das den Leser abholt
+2. **OpenCode** – Was ist das und warum nutzt du es?
+3. **Skills** – Was sind Skills und wie helfen sie?
+4. **Warum-X** – Warum gerade dieses Tool/diesen Ansatz?
+5. **MCPs** – Welche MCPs kamen zum Einsatz?
+6. **Retro** – Was war überraschend/schwer?
+7. **Schritt-für-Schritt (5 Steps)**
+   - Step 1: Installieren
+   - Step 2: Projekt anlegen
+   - Step 3: Skill starten
+   - Step 4: Output prüfen
+   - Step 5: Veröffentlichen
+8. **Zukunft** – Was planst du als Nächstes?
+9. **Links** – Weiterführende Ressourcen
 
-**Tone-Regeln:**
-- Ich-Perspektive ("Ich habe", "Mir war klar")
-- Kurze Sätze (max 20 Wörter)
-- Keine Buzzwords (Revolution, Game-Changer, 10x)
-- Konkret statt abstrakt
-- Kein Code-Blöcke im Fließtext
-- Schreibe wie du einem Kollegen in der Küche was erzählst
+**Stil:**
+- Neutrale Perspektive ("man kann…", "wer X braucht…")
+- 1–3 Code-Blöcke, kurz und fokussiert
+- ~1500–2000 Wörter
+- Erklär-Ebenen für Fachbegriffe (Fußnoten oder Klammern)
+- **Warum-X-Regel:** Sage bei jeder Tool-Wahl, warum gerade dieses und nicht ein anderes
 
-### Phase 3: LinkedIn-Draft ableiten
+---
 
-3 Absätze aus dem Blog-Post:
+## Regeln (für beide Formate)
 
-1. **Hook** — Das Problem in einem Satz.
-2. **Brücke** — Was ich gemacht habe. Kurz. Ohne Technik-Jargon.
-3. **Ergebnis + Frage** — Was rauskam. Ende mit einer Frage ans Netzwerk.
+- **Nicht in den Post:** CI/CD, Deployment-Pipeline, Webhooks – das kommt in einen separaten Post
+- **Lizenz-Tabelle** am Ende: MIT
+- **LinkedIn-Draft:** 3 Absätze, kein Link, kein Code – parallel zum Blog-Post generieren
 
-Kein Link zum Blog-Post. Keine Hashtags.
+---
 
-### Phase 4: Vorlegen
+## Pfade zum Anpassen
 
-Zeige beides im Chat:
-
-```
-📝 Blog-Post (Draft) → content/blog/<slug>.md
-📱 LinkedIn-Draft:
-
-[Hook]
-[Brücke]
-[Ergebnis + Frage]
-
-— draft: true, unsichtbar bis Freigabe
-— Sag "Passt", "Ändere X" oder "Veröffentlichen"
-```
-
-### Phase 5: Freigabe (nur auf Befehl)
-
-Wenn User "Veröffentlichen" oder "Live" sagt:
-1. Setze `draft: true` → `draft: false`
-2. `git add` + `git commit -m "blog: <titel>"`
-3. `git push`
-4. Bestätigung: "Online unter [DEINE-DOMAIN]/blog/<slug>/"
-
-Wenn User "Ändere X" sagt:
-1. Änderung umsetzen
-2. Erneut vorlegen (Phase 4)
-
-Wenn User gar nichts sagt: Es bleibt Draft. Kein automatisches Veröffentlichen.
-
-### Review-Checkliste (vor Vorlage anwenden)
-
-- [ ] **Wo ist die konkrete Szene?** — Jeder Post beginnt mit einem Moment, nicht einer These
-- [ ] **Welches Detail ist überflüssig?** — Streichen. Kürzen bis es wehtut
-- [ ] **Wo schreibe ich für Fachleute statt für Menschen?** — Umschreiben. Der Leser kennt den Kontext nicht
-- [ ] **Wo fehlt das "Ich"?** — Persönliche Haltung einweben. Nicht neutral berichten
-
-### Pfade zum Anpassen
+Trage hier deine tatsächlichen Pfade ein:
 
 ```
-BLOG-REPO  = /pfad/zu/deinem/blog-repo    ← z.B. ~/github/mein-blog
-VAULT-PFAD = /pfad/zu/deinem/obsidian-vault ← z.B. ~/docs
-DEINE-DOMAIN = https://deine-blog-domain.de
+BLOG-REPO  = /pfad/zu/deinem/hugo-blog
+VAULT-PFAD = /pfad/zu/deinem/obsidian-vault
+```
+
+Ersetze beide Pfade, bevor du den Skill nutzt.
+
+---
+
+## Installation
+
+```bash
+mkdir -p ~/.config/opencode/skills/blog-builder
+cp SKILL.md.template ~/.config/opencode/skills/blog-builder/SKILL.md
+# Pfade in ~/.config/opencode/skills/blog-builder/SKILL.md anpassen
 ```
